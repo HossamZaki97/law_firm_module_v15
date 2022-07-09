@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+
+class SupportTeam(models.Model):
+    _name = 'support.team'
+    _rec_name = 'name'
+    _description = 'Support Team'
+    
+    name = fields.Char(
+        string='Name',
+        required=True,
+    )
+    team_ids = fields.Many2many(
+        'res.users',
+        string='Team Members'
+    )
+    is_team = fields.Boolean(
+        'Is Team?'
+    )
+    leader_id = fields.Many2one(
+        'res.users',
+        string='Leader',
+        required=True,
+    )
+    
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

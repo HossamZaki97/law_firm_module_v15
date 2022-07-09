@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="attachment_tag_form_view">
+            <field name="name">attachment.tag.form</field>
+            <field name="model">attachment.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                  </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="attachment_tag_tree_view">
+            <field name="name">attachment.tag.tree</field>
+            <field name="model">attachment.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                        <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="attachment_tag_search_view" model="ir.ui.view">
+            <field name="name">attachment.tag.search</field>
+            <field name="model">attachment.tag</field>
+            <field name="arch" type="xml">
+                <search string="Directory Tag search" >
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_attachment_tags" model="ir.actions.act_window">
+            <field name="name">Document Tags</field>
+            <field name="res_model">attachment.tag</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create Document Tags</field>
+        </record>
+
+        <menuitem name="Document Tags" id="menu_attch_tags" parent="menu_document_config" action="action_attachment_tags" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" />
+        
+    </data>
+</odoo>

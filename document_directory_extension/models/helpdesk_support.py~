@@ -1,0 +1,343 @@
+# -*- coding: utf-8 -*-
+
+import time
+
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, Warning
+
+class HelpdeskSupport(models.Model):
+    _name = 'helpdesk.support'
+    _rec_name = 'name'
+    _description = 'Helpdesk Support'
+    _order = 'id desc'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('helpdesk.support') or 'New'
+        return super(HelpdeskSupport, self).create(vals)
+    
+    @api.multi
+    @api.depends('timesheet_line_ids.unit_amount')
+    def _compute_total_spend_hours(self):
+        for rec in self:
+            spend_hours = 0.0
+            for line in rec.timesheet_line_ids:
+                spend_hours += line.unit_amount
+            rec.total_spend_hours = spend_hours
+    
+    @api.onchange('project_id')
+    def onchnage_project(self):
+        for rec in self:
+            rec.analytic_account_id = rec.project_id.analytic_account_id
+          
+    @api.one
+    def set_to_close(self):
+        if self.is_close != True:
+            self.is_close = True
+            self.close_date = time.strftime('%Y-%m-%d')
+            self.state = 'closed'
+            template = self.env.ref('website_helpdesk_support_ticket.email_template_helpdesk_ticket')
+            template.send_mail(self.id, force_send=True)
+            
+    @api.one
+    def set_to_reopen(self):
+        if self.is_close != False:
+            self.is_close = False
+    
+    name = fields.Char(
+        string='Number', 
+        required=True, 
+        copy=False, 
+        readonly=True, 
+    )
+    state = fields.Selection(
+        [('new','New'),
+         ('assigned','Assigned'),
+         ('work_in_progress','Work in Progress'),
+         ('needs_more_info','Needs More Info'),
+         ('needs_reply','Needs Reply'),
+         ('reopened','Reopened'),
+         ('solution_suggested','Solution Suggested'),
+         ('closed','Closed')],
+        track_visibility='onchange',
+        default='new',
+        copy=False, 
+    )
+    customer_id = fields.Many2one(
+        'res.partner',
+        string="Customer", 
+        required=True,
+    )
+    email = fields.Char(
+        string="Email",
+        required=True
+    )
+    phone = fields.Char(
+        string="Phone"
+    )
+    category = fields.Selection(
+        [('technical', 'Technical'),
+        ('functional', 'Functional'),
+        ('support', 'Support')],
+        string='Category',
+    )
+    subject = fields.Char(
+        string="Subject"
+    )
+    description = fields.Text(
+        string="Description"
+    )
+    priority = fields.Selection(
+        [('0', 'Low'),
+        ('1', 'Middle'),
+        ('2', 'High')],
+        string='Priority',
+    )
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Customer',
+    )
+    request_date = fields.Datetime(
+        string='Create Date',
+        default=fields.date.today(),
+    )
+    close_date = fields.Datetime(
+        string='Close Date',
+    )
+    user_id = fields.Many2one(
+        'res.users',
+        string='Assign To',
+    )
+    department_id = fields.Many2one(
+        'hr.department',
+        string='Department'
+    )
+    timesheet_line_ids = fields.One2many(
+        'account.analytic.line',
+        'support_request_id',
+        string='Timesheets',
+    )
+    is_close = fields.Boolean(
+        string='Is Ticket Closed ?',
+        track_visibility='onchange',
+        default=False,
+        copy=False,
+    )
+    total_spend_hours = fields.Float(
+        string='Total Hours Spent',
+        compute='_compute_total_spend_hours'
+    )
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project',
+    )
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic Account',
+    )
+    team_id = fields.Many2one(
+        'support.team',
+        string='Helpdesk Team',
+    )
+    team_leader_id = fields.Many2one(
+        'res.users',
+        string='Team Leader',
+        related ='team_id.leader_id',
+        store=True,
+    )
+    invoice_line_ids = fields.One2many(
+        'support.invoice.line',
+        'support_id',
+        string='Invoice Lines',
+    )
+    journal_id = fields.Many2one(
+        'account.journal',
+         string='Invoice Journal',
+     )
+    invoice_id = fields.Many2one(
+        'account.invoice',
+         string='Invoice Reference',
+         copy='False',
+     )
+    is_invoice_created = fields.Boolean(
+        string='Is Invoice Created',
+        default=False,
+    )
+    task_id = fields.Many2one(
+        'project.task',
+        string='Task',
+        readonly = True,
+    )
+    is_task_created = fields.Boolean(
+        string='Is Task Created ?',
+        default=False,
+    )
+    company_id = fields.Many2one(
+        'res.company', 
+        default=lambda self: self.env.user.company_id, 
+        string='Company',
+        readonly=True,
+     )
+    comment = fields.Text(
+        string='Customer Comment',
+        readonly=True,
+    )
+    rating = fields.Selection(
+        [('poor', 'Poor'),
+        ('average', 'Average'),
+        ('good', 'Good'),
+        ('very good', 'Very Good'),
+        ('excellent', 'Excellent')],
+        string='Customer Rating',
+        readonly=True,
+    )
+    
+    @api.one
+    def unlink(self):
+        for rec in self:
+            if rec.state != 'new':
+                raise Warning(_('You can not delete record which are not in draft state.'))
+        return super(HelpdeskSupport, self).unlink()
+        
+    @api.multi
+    def _prepare_invoice_line(self, invoice_id):
+        """
+        Prepare the dict of values to create the new invoice line.
+        :param qty: float quantity to invoice
+        """
+        for rec in self:
+            for line in rec.invoice_line_ids:
+                if line.is_invoice:
+                    pass
+                else:
+                    line.is_invoice = "True"
+                    product = line.product_id
+                    account = product.property_account_expense_id or product.categ_id.property_account_expense_categ_id
+                    if not account:
+                        raise UserError(_('Please define expense account for this product: "%s" (id:%d) - or for its category: "%s".') % \
+                                (product.name, product.id, product.categ_id.name))
+                    fpos = invoice_id.partner_id.property_account_position_id
+                    if fpos:
+                        account = fpos.map_account(account)
+                    vals = {
+                        'name': product.name, 
+                        'origin': invoice_id.origin,
+                        'account_id': account.id,
+                        'price_unit': line.price_unit,
+                        'price_subtotal' : line.product_id.standard_price * line.quantity,
+                        'quantity': line.quantity, 
+                        'uom_id': product.uom_id.id,
+                        'product_id': product.id or False, 
+                        'account_analytic_id' : line.analytic_account_id.id,
+                        'invoice_id': invoice_id.id 
+                    }
+                    line = self.env['account.invoice.line'].sudo().create(vals)
+        return True
+    
+    @api.multi
+    def _prepare_invoice(self):
+        """
+        Prepare the dict of values to create the new invoice . This method may be
+        overridden to implement custom invoice generation (making sure to call super() to establish
+        a clean extension chain).
+        """
+        self.ensure_one()
+        partner = self.partner_id
+        if not partner.property_product_pricelist:
+            raise Warning(_('Please set pricelist.'))
+        if not self.journal_id:
+            raise UserError(_('Please configure an accounting sale journal for this company.'))
+        invoice_vals = {
+            'name': self.name or '', 
+            'origin': self.name, 
+            'type': 'out_invoice',
+            'date_invoice' : fields.Date.today(),
+            'account_id': partner.property_account_receivable_id.id,
+            'partner_id': partner.id, 
+            'journal_id': self.journal_id.id, 
+            'currency_id': partner.property_product_pricelist.currency_id.id,
+            'payment_term_id': partner.property_payment_term_id.id,
+            'fiscal_position_id': partner.property_account_position_id.id,
+            'company_id': self.user_id.company_id.id, 
+            'user_id': self.user_id.id, 
+            
+        }
+        return invoice_vals
+    
+    @api.multi
+    def action_create_invoice(self):
+        inv_obj = self.env['account.invoice']
+        inv_line_obj = self.env['account.invoice.line']
+        for rec in self:
+            if not rec.invoice_line_ids:
+                raise Warning(_('Please add invoice lines'))
+            else:
+                inv_obj = self.env['account.invoice'].sudo().search([('origin', '=', rec.name)])
+                if inv_obj.origin:
+                    rec._prepare_invoice_line(inv_obj) 
+                    rec.invoice_id = inv_obj.id
+                else:
+                    inv_data = rec._prepare_invoice()
+                    invoice = inv_obj.create(inv_data)
+                    rec._prepare_invoice_line(invoice)
+                    rec.invoice_id = invoice.id
+                    rec.invoice_id = invoice.id
+                    vals = {
+                        'invoice_id' : invoice.id,
+                        'is_invoice_created' : True,
+                        }
+                    rec.write(vals)
+        
+    @api.multi
+    def show_invoice(self):
+        for rec in self:
+            salin = self.env['account.invoice']
+            res = self.env.ref('account.action_invoice_tree1')
+            res = res.read()[0]
+            res['domain'] = str([('id','=',rec.invoice_id.id)])
+        return res
+        
+    @api.multi
+    def action_create_task(self):
+        for rec in self:
+            task_vals = {
+            'name' : rec.subject +'('+rec.name+')',
+            'user_id' : rec.user_id.id,
+            'date_deadline' : rec.close_date,
+            'project_id' : rec.project_id.id,
+            'partner_id' : rec.partner_id.id,
+            'description' : rec.description,
+            'ticket_id' : rec.id,
+            }
+            task_id= self.env['project.task'].create(task_vals)
+            vals = {
+            'task_id' : task_id.id,
+            'is_task_created' : True,
+            }
+            rec.write(vals)
+            
+    @api.multi
+    def show_task(self):
+        for rec in self:
+            saler = self.env['project.task']
+            res = self.env.ref('project.action_view_task')
+            res = res.read()[0]
+            res['domain'] = str([('id','=',rec.task_id.id)])
+        return res
+        
+class HrTimesheetSheet(models.Model):
+    _inherit = 'account.analytic.line'
+
+    support_request_id = fields.Many2one(
+        'helpdesk.support',
+        domain=[('is_close','=',False)],
+        string='Helpdesk Support',
+    )
+    billable = fields.Boolean(
+        string='Billable',
+        default=True,
+    )
+    
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

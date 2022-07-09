@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="billing_job_costing_view" model="ir.ui.view">
+            <field name="name">job.costing.inherit.form</field>
+            <field name="model">job.costing</field>
+            <field name="inherit_id" ref="odoo_job_costing_management.job_costing_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="%(action_job_costing_invoice)d" type="action" string="Create Invoice" 
+                            groups="project.group_project_manager" states="confirm,approve,done" class="btn-primary"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page invisible="1">
+                        <field name="invoice_ids"/>
+                    </page>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_invoice"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o" 
+                                help="Customer Invoices">
+                                <field string="Customer Invoices" name="invoice_count" widget="statinfo"/>
+                            </button>
+                </xpath>
+                <xpath expr="//field[@name='so_number']" position="after">
+                    <field name="billable_method" attrs="{'readonly' : [('state','in',('approve','done','cancel'))]}"/>
+                </xpath>
+<!--                <xpath expr="//notebook/page/field/tree/field[@name='product_qty']" position="after">-->
+<!--                    <field name="billable"/>-->
+<!--                </xpath>-->
+                <xpath expr="//notebook/page/field/tree/field[@name='cost_price']" position="after">
+                    <field name="sale_price" sum="Total"/>
+                </xpath>
+                <xpath expr="//notebook/page[3]/field/tree/field[@name='cost_price']" position="after">
+                    <field name="sale_price" sum="Total"/>
+                </xpath>
+              <!--  <xpath expr="//notebook/page[2]/field/tree/field[@name='hours']" position="after">
+                    <field name="billable"/>
+                </xpath>
+                <xpath expr="//notebook/page[3]/field/tree/field[@name='product_qty']" position="after">
+                    <field name="billable"/>
+                </xpath> -->
+                <xpath expr="//notebook/page/field/tree/field[@name='total_cost']" position="after">
+                    <field name="manual_invoice_qty" sum="Total"/>
+                    <field name="invoice_qty" sum="Total" optional="hide"/>
+                    <field name="billable"/>
+                </xpath>
+                <xpath expr="//notebook/page[2]/field/tree/field[@name='total_cost']" position="after">
+                    <field name="manual_invoice_hours" sum="Total" widget="float_time"/>
+                    <field name="invoice_hours" sum="Total" widget="float_time" optional="hide"/>
+                    <field name="billable"/>
+                </xpath>
+                <xpath expr="//notebook/page[3]/field/tree/field[@name='total_cost']" position="after">
+                    <field name="manual_invoice_qty" sum="Total"/>
+                    <field name="invoice_qty" sum="Total" optional="hide"/>
+                    <field name="billable"/>
+                </xpath>
+                <xpath expr="//notebook/page[2]/field/tree/field[@name='cost_price']" position="after"><!--ODOO14-->
+                    <field name="sale_price" sum="Total"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <record id="job_cost_line_tree_view_inherit_progressbilling_custom" model="ir.ui.view">
+	        <field name="name">job.cost.line.tree.inherit.progressbilling</field>
+	        <field name="model">job.cost.line</field>
+	        <field name="inherit_id" ref="odoo_job_costing_management.job_cost_line_tree_view"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='total_cost']" position="after">
+	            	<field name="manual_invoice_qty" />
+	            	<field name="manual_invoice_hours" widget="float_time"/>
+	                <field name="invoice_qty" />
+	                <field name="invoice_hours" />
+	                <field name="billable"/>
+	            </xpath>
+	            <xpath expr="//field[@name='cost_price']" position="after">
+                    <field name="sale_price" />
+                </xpath>
+	        </field>
+	    </record>
+	    
+    </data>
+</odoo>

@@ -1,0 +1,133 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="schedule_activity_dashboard.list">
+        <field name="name">schedule_activity_dashboard list</field>
+        <field name="model">schedule_activity.dashboard</field>
+        <field name="arch" type="xml">
+          <tree>
+            <field name="cus_res_model_id"/>
+            <field name="sequence"/>
+          </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="schedule_activity_dashboard.form">
+        <field name="name">schedule_activity_dashboard form</field>
+        <field name="model">schedule_activity.dashboard</field>
+        <field name="arch" type="xml">
+            <form>
+              <group>
+                <field name="cus_res_model_id"/>
+                 <field name="sequence"/>
+              </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="schedule_activity_dashboard.kanban">
+      <field name="name">schedule_activity_dashboard kanban</field>
+      <field name="model">schedule_activity.dashboard</field>
+      <field name="arch" type="xml">
+        <kanban  class="w-auto p-3">
+          <field name="cus_res_model_id"/>
+            <templates>
+                <t t-name="kanban-box">
+                  <div t-attf-class="oe_kanban_global_click" style="background-color:#7C7BAD; border: 2px solid black;">
+                  <div class="container o_kanban_card_content o_account_kanban">
+                      <div class="row">
+                          <div class="col-md-12">
+                            <div class="o_kanban_record_headings text-center" style="color:white;">
+                                <strong class="o_kanban_record_title"><b><span style="font-size:20px;border-bottom:2px solid black"><t t-esc="record.cus_res_model_id.value"/></span></b></strong>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <button type="object" name="action_today_activity" class="btn btn-link" style="color:white;"> 
+                                      <i class="fa fa-calendar"/> <span>Today Activity</span>
+                                  </button>
+                                  <button type="object" name="action_tomorrow_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-calendar-o" /> <span>Tomorrow Activity</span>
+                                  </button>
+                                  <button type="object" name="action_week_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-calendar-check-o" /> <span>This Week Activity</span>
+                                  </button>
+                                  <button type="object" name="action_month_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-calendar-o" />  <span>This Month Activity</span>
+                                  </button>
+                                  <button type="object" name="action_today_email_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-envelope"/>  <span>Today Email Activity</span>
+                                  </button>
+                                  <button type="object" name="action_today_phone_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-phone"/>  <span>Today Call Activity</span>
+                                  </button>
+                                  <button type="object" name="action_today_meeting_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-calendar"/>  <span>Today Meeting Activity</span>
+                                  </button>
+                                  <button type="object" name="action_to_do_activity" class="btn btn-link" style="color:white;">
+                                      <i class="fa fa-calendar-check-o" /> <span>Today ToDo Activity</span>
+                                  </button>
+                                </div>
+                                 <div class="col-md-6">
+                                    <button type="object" name="action_yesterday_activity" class="btn btn-link" style="color:white;">
+                                         <i class="fa fa-calendar-check-o" /> <span>Yesterday Activity</span>
+                                    </button>
+                                    <button type="object" name="action_past_activity" class="btn btn-link" style="color:white;">
+                                         <i class="fa fa-calendar-times-o" /> <span>Past Days Activity</span>
+                                    </button>
+                                    <button type="object" name="action_last_week_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-calendar-minus-o"/>
+                                        <span>Last Week Activity</span>
+                                    </button>
+                                    <button type="object" name="action_last_month_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-calendar-minus-o"/>
+                                        <span>Last Month Activity</span>
+                                    </button>
+                                    <button type="object" name="action_week_mail_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-calendar-minus-o"/>
+                                        <span>Weekly Mail Activity</span>
+                                    </button>
+                                    <button type="object" name="action_week_phone_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-phone"/>
+                                        <span>Weekly Call Activity</span>
+                                    </button>
+                                    <button type="object" name="action_week_meeting_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-calendar"/>
+                                        <span>Weekly Meeting Activity</span>
+                                    </button>
+                                    <button type="object" name="action_do_meeting_activity" class="btn btn-link" style="color:white;">
+                                        <i class="fa fa-calendar"/>
+                                        <span>Weekly ToDo Activity</span>
+                                    </button>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div> 
+                      </div>   
+                    </t>
+            </templates>
+        </kanban>
+      </field>
+    </record>
+    
+
+    
+    <record model="ir.actions.act_window" id="schedule_activity_dashboard.action_window">
+      <field name="name">Schedule Activity Dashboard</field>
+      <field name="res_model">schedule_activity.dashboard</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record id="schedule_activity_dashboard_action" model="ir.actions.act_window">
+          <field name="name">Dashboard</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">schedule_activity.dashboard</field>
+          <field name="view_mode">kanban</field>
+<!--odoo13          <field name="view_type">form</field>-->
+    </record>
+
+    
+    <menuitem name="Configuration" id="schedule_activity_dashboard.parent" parent="schedule_activity_global.schedule_activity_menu" sequence="3"/>
+    <menuitem name="Dashboard" id="schedule_activity_dashboard" parent="schedule_activity_global.schedule_activity_menu" action="schedule_activity_dashboard_action" sequence="0"/>
+    
+    <menuitem name="Schedule Activity" id="schedule_activity_dashboard.dashboard" parent="schedule_activity_dashboard.parent" action="schedule_activity_dashboard.action_window" />
+    
+  
+  </data>
+</odoo>

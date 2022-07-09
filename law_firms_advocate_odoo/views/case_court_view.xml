@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_view_case_court_form" model="ir.ui.view">
+            <field name="name">case.court.form</field>
+            <field name="model">case.court</field>
+            <field name="arch" type="xml">
+                <form string="Case Court">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" string="Address" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_view_case_court_tree" model="ir.ui.view">
+            <field name="name">case.court.tree</field>
+            <field name="model">case.court</field>
+            <field name="arch" type="xml">
+                <tree string="Case Court">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="custom_action_case_court" model="ir.actions.act_window">
+            <field name="name">Courts</field>
+            <field name="res_model">case.court</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="custom_view_case_court_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new case court.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

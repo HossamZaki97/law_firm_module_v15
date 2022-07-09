@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="menu_directory_other_document" model="document.directory">
+            <field name="name">Other Documents</field>
+            <field name="code">1</field>
+            <field name="dir_type">view</field>
+        </record>
+
+    </data>
+</odoo>

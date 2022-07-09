@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+        <!-- Configuration For Documents -->
+        <menuitem id="menu_jobcost_documents_configuration" name="Documents" 
+                  parent="odoo_job_costing_management.menu_job_cost_configuration"/>
+        
+        <menuitem name="Directory Tags" id="menu_doc_dir_tags" parent="menu_jobcost_documents_configuration" 
+                  action="document_directory_extension_security.action_dir_tags"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        
+        <menuitem name="Document Tags" id="menu_doc_attch_tags" parent="menu_jobcost_documents_configuration" 
+                  action="document_directory_extension_security.action_attachment_tags" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"
+        />
+        
+        <!-- Document Menu -->
+        
+        <menuitem name="Documents" id="menu_job_costsheet_document" parent="odoo_job_costing_management.menu_job_managmt" sequence="5"
+                  groups="document_directory_extension_security.group_document_user,base.group_user"/>
+        
+        <menuitem name="All Documents" id="menu_jobcost_document_under" parent="menu_job_costsheet_document" action="base.action_attachment"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        
+        <menuitem name="Directories" id="menu_jobcost_document_directory" parent="menu_job_costsheet_document" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" 
+                  sequence="1" />
+        
+        <record id="action_menu_document_display" model="ir.actions.act_window">
+            <field name="name">Directories</field>
+            <field name="res_model">document.directory</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dir_type','=','dir')]</field>
+            <field name="view_id" ref="document_directory_extension.document_directory_tree_view"/>
+            <field name="help">Create Document Directory</field>
+        </record>
+        
+        <menuitem name="Directories" id="menu_jobcost_document_directories" parent="menu_jobcost_document_directory" 
+                  action="action_menu_document_display" sequence="2" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        
+        <record id="action_document_tree_hierarchy" model="ir.actions.act_window">
+            <field name="name">Parent Directories</field>
+            <field name="res_model">document.directory</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="document_directory_extension.document_tree_hierarchy_shov"/>
+            <field name="context">{'default_dir_type': 'view'}</field>
+            <field name="domain">[('dir_type','=','view')]</field>
+        </record>
+        
+        <menuitem name="Parent Directories" id="menu_parent_directory" sequence="1"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" 
+                  parent="menu_jobcost_document_directory" 
+                  action="action_document_tree_hierarchy"/>
+        
+        <menuitem name="My Documents" parent="menu_job_costsheet_document" id="jobcost_emp_documents_menu" 
+                  groups="base.group_user" action="document_directory_extension_security.action_emp_document_display_all"/>
+    </data>
+</odoo>

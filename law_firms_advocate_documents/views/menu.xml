@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <menuitem id="menu_law_documents_configuration_custom" name="Documents" 
+                  parent="law_firms_advocate_odoo.custom_case_configuration_main_menu"/>
+        <menuitem name="Directory Tags" id="law_menu_dir_tags_custom" parent="menu_law_documents_configuration_custom" action="document_directory_extension_security.action_dir_tags"/>
+        <menuitem name="Document Tags" id="law_menu_attch_tags_custom" parent="menu_law_documents_configuration_custom" action="document_directory_extension_security.action_attachment_tags"/>
+
+        <!-- Document Menu -->
+        
+        <menuitem name="Documents" id="menu_law_document_custom" parent="law_firms_advocate_odoo.custom_advocate_main_menu" sequence="4"/>
+        <menuitem name="Directories" id="menu_law_document_directory_custom" parent="menu_law_document_custom" sequence="1" />
+        <menuitem name="Parent Directories" id="menu_law_parent_directory_custom" sequence="1"  parent="menu_law_document_directory_custom" 
+                  action="job_costing_contracting_document.action_document_tree_hierarchy"/>
+        <menuitem name="Directories" id="menu_law_document_directories_custom" parent="menu_law_document_directory_custom" 
+                  action="job_costing_contracting_document.action_menu_document_display" sequence="2"/>
+        <menuitem name="All Documents" id="menu_law_document_under_custom" parent="menu_law_document_custom" action="base.action_attachment"/>
+        <menuitem name="My Documents" parent="menu_law_document_custom" id="law_emp_documents_menu_custom" groups="base.group_user" action="document_directory_extension_security.action_emp_document_display_all"/>
+        
+    </data>
+</odoo>

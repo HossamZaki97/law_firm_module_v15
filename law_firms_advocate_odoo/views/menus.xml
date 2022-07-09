@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="Law" id="custom_advocate_main_menu" 
+            web_icon="law_firms_advocate_odoo,static/description/icon.png"/>
+        <menuitem name="My Cases" id="custom_my_cases_menu" parent="custom_advocate_main_menu" sequence="1"
+        	action="law_firms_advocate_odoo.custom_action_open_view_cases_all"/>
+        <menuitem name="Lawyers" id="custom_lawyer_menu" parent="custom_advocate_main_menu" sequence="2"  action="law_firms_advocate_odoo.custom_action_open_view_lawyer_all"/>
+        <menuitem name="Witness" id="custom_witnes_menu" parent="custom_advocate_main_menu" sequence="3"  action="law_firms_advocate_odoo.custom_action_open_view_witnes_all"/>
+
+
+    	<menuitem name="Configuration" id="custom_case_configuration_main_menu" parent="custom_advocate_main_menu" sequence="10"/>
+    	<menuitem name="Case Types" id="custom_case_type_menu" parent="custom_case_configuration_main_menu" sequence="1"	action="law_firms_advocate_odoo.custom_action_case_type"/>
+    	<menuitem name="FIR Police Stations" id="custom_fir_police_station_menu" parent="custom_case_configuration_main_menu" sequence="2"	action="law_firms_advocate_odoo.custom_action_fir_police_station"/>
+    	<menuitem name="Courts" id="custom_case_court_menu" parent="custom_case_configuration_main_menu" sequence="3"	action="law_firms_advocate_odoo.custom_action_case_court"/>
+
+        <!-- Reporting menus -->
+        <menuitem id="custom_menu_cases_report" name="Reporting"
+            groups="project.group_project_manager"
+            parent="custom_advocate_main_menu" sequence="9"/>
+        <menuitem id="custom_menu_case_report_analysis"
+            name="Cases Analysis"
+            action="law_firms_advocate_odoo.action_custom_project_task_user_cases_tree"
+            parent="law_firms_advocate_odoo.custom_menu_cases_report"
+            sequence="10"/>
+    </data>
+</odoo>

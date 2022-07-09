@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="directory_tag_form_view">
+            <field name="name">directory.tag.form</field>
+            <field name="model">directory.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                  </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="directory_tag_tree_view">
+            <field name="name">directory.tag.tree</field>
+            <field name="model">directory.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                        <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="document_directory_tag_search_view" model="ir.ui.view">
+            <field name="name">directory.tag.search</field>
+            <field name="model">directory.tag</field>
+            <field name="arch" type="xml">
+                <search string="Directory Tag search" >
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_dir_tags" model="ir.actions.act_window">
+            <field name="name">Directory Tags</field>
+            <field name="res_model">directory.tag</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create Directory Tags</field>
+        </record>
+
+        <menuitem name="Configuration" id="menu_document_config" parent="document_directory_extension.main_document_extension_menu"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" />
+        <menuitem name="Directory Tags" id="menu_dir_tags" parent="menu_document_config" action="action_dir_tags" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        
+    </data>
+</odoo>

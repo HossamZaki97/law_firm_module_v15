@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_law_jobcost_line,access.law.jobcost.line,model_law_jobcost_line,project.group_project_manager,1,1,1,1
+access_law_jobcost_line_add,access.law.jobcost.line.add,model_law_jobcost_line,project.group_project_user,1,0,0,0
+access_law_request_jobcostsheet_wizard,access.law.request.jobcostsheet.wizard,model_law_request_jobcostsheet_wizard,project.group_project_user,1,1,1,0

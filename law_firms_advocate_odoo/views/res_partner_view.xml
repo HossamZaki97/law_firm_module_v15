@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="custom_view_partner_form_inherit_witness" model="ir.ui.view">
+            <field name="name">res.partner.inherit.witness</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="before">
+                    <field name="custom_is_witnes"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="custom_action_open_view_witnes_all" model="ir.actions.act_window">
+            <field name="name">Witness</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('custom_is_witnes', '=', True)]</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="context">{'default_custom_is_witnes': True}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new lawyer.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="ir_attachment__inherit_form_view" model="ir.ui.view">
+            <field name="name">Ir attachment.form</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mimetype']" position="after">
+                    <field name="directory_id"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="number"/>
+                </xpath>
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <button string="Send by Email" name="action_attachment_send" type="object" class="oe_highlight"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ir_attachment_inherit_tree_view" model="ir.ui.view">
+            <field name="name">Ir attachment.tree</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="number"/>
+                    <field name="directory_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ir_attachment_inherit_search_view" model="ir.ui.view">
+            <field name="name">Ir attachment.search</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="directory_id"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter name="Directory" context="{'group_by':'directory_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

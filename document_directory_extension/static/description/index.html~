@@ -1,0 +1,119 @@
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+           <h2 class="oe_slogan">Attachment/Document Extension with Directory and Numbering</h2>
+       <p class="oe_mt32">
+This module will add below features to document/attachment module of Odoo and only allow Document Manager to handle and view below features.<br/><br/>
+1. Creation directory/folder by model/object.<br/>
+2. Every directory/folder having separate sequence numbering for attachments.<br/>
+3. Security on directory so only specific group can access/create document/attachment inside that directory. (Optional if you do not select group then no security).<br/>
+4. Directory hierarcy view.<br/>
+5. Document menu is only avaialble for Document Manager group. (New group has  been created for Document Manager).<br/>
+6. This app is totally dedicated to Document Manager who manage document of ERP.<br/>
+7. If there is not direcotry available for any model/object then attachment/document will follow DOC/ generic sequence.<br/>
+       </p>
+       <p><p style="color:green">Available Menus:</p>
+            <ul style="color:blue;">
+              <li>Document</li>
+              <li>Document/Directories</li>
+              <li>Document/Directories/Directories</li>
+              <li>Document/Directories/Directories Structure</li>
+              <li>Document/Documents</li>
+              <li>Document/Documents/Documents</li>
+            </ul>
+         </p>
+   </div>
+</section>
+
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Directory Form View</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="1.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Directory Structure Tree View</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s4.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">View all Documents using Smart Button on Directory Form View</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="2.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Attachment on Project Model By Project Manager - Martin Luther</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s7.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Documents Manager See Attachment on Directory of Project - Morgan Freeman</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s74.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Related Directory on Attachment Form View</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s3.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">All System Documents - View by Document Manager</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s5.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Directory Already Exist Warning</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="s6.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h3 class="oe_slogan"><b style="color:red;">Document/Attachment - Send By Email</b></h3>
+       <div class="oe_demo oe_screenshot">
+           <img src="sdd.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container" >
+   <div class="oe_row oe_spaced">
+       <div class="oe_span6">
+           <div class="oe_picture" style="margin: 25px 10%;">
+               <a href="http://www.probuse.com/">
+                   <img src="logo.png">
+               </a>
+           </div>
+       </div>
+       <div class="oe_span6">
+           <p class="oe_mt32">
+               If you need any help or want more additional features,<br/> you may contact us through:<br/>
+               Email: <a href="contact@probuse.com">contact@probuse.com</a> <br/>
+               Website: <a href="http://www.probuse.com/" target='new'><u>www.probuse.com</u></a> <br/>
+               Skype: mustufa_probuse<br/>
+           </p>
+       </div>
+   </div>
+</section>
+
+

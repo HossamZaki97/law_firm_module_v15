@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <data noupdate="1">
+
+    <record id="custom_court_case_hearing_alart_cron" model="ir.cron">
+        <field name="name">Notification: Court Case Hearing Notification Mail</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_case_hearing_notification_mail()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+
+    </data>
+</odoo>

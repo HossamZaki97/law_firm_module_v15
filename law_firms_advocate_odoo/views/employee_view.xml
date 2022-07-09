@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="custom_view_employee_form_inherit_lawlawyer" model="ir.ui.view">
+            <field name="name">hr.employee.inherit.lawlawyer</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mobile_phone']" position="before">
+                    <field name="custom_is_lawyer"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="custom_action_open_view_lawyer_all" model="ir.actions.act_window">
+            <field name="name">Lawyers</field>
+            <field name="res_model">hr.employee</field>
+            <field name="domain">[('custom_is_lawyer', '=', True)]</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="context">{'default_custom_is_lawyer': True}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new lawyer.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

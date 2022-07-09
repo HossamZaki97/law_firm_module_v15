@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- <template id="custom_portal_layout_inherit_cases" name="Portal layout: project menu entry" inherit_id="project.portal_layout"  priority="40">
+        <xpath expr="//li//a[@t-if='project']" position="replace">
+            <a t-if="project" t-attf-href="/my/projects?{{ keep_query() }}">Projects/Cases</a>
+        </xpath>
+        <xpath expr="//li//a[@t-if='task']" position="replace">
+            <a t-if="task" t-attf-href="/my/tasks?{{ keep_query() }}">Tasks/Hearings</a>
+        </xpath>
+    </template> --> <!-- Odoo13 -->
+
+    <!-- <template id="custom_portal_my_home_inherit_cases" name="Portal My Home: project entries" inherit_id="project.portal_my_home"  priority="40">
+        <xpath expr="//t[@t-if='project_count']//t[@t-set='title']" position="replace">
+            <t t-set="title">Projects/Cases</t>
+        </xpath>
+        <xpath expr="//t[@t-if='task_count']//t[@t-set='title']" position="replace">
+            <t t-set="title">Tasks/Hearings</t>
+        </xpath>
+    </template> --> <!-- odoo13 -->
+    <template id="custom_portal_my_home_inherit_cases" name="Portal My Home: project entries" inherit_id="portal.portal_my_home"  priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Projects/Cases</t>
+                <t t-set="url" t-value="'/my/projects'"/>
+                <t t-set="placeholder_count" t-value="'project_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Tasks/Hearings</t>
+                <t t-set="url" t-value="'/my/tasks'"/>
+                <t t-set="placeholder_count" t-value="'task_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+<!--    <template id="portal_my_project_inherit_cases" name="My Project/Cases" inherit_id="project.portal_my_project">-->
+<!--        <xpath expr="//div[@t-if='project.user_id']" position="after">-->
+<!--            <div t-if="project.is_law_firm_project" class="col-12 col-md-6">-->
+<!--                <h5 style="color:blue;">Opposite Details</h5>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        <strong>Opposite Client</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_opposite_client.name" readonly="readonly"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <strong>Opposite Advocate</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_opposite_advocate.name" readonly="readonly"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <h5 style="color:blue;">FIR Details</h5>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        <strong>FIR Number</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_fir_number" readonly="readonly"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <strong>FIR Police Station</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_fir_police_station_id.name" readonly="readonly"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div t-if="project.is_law_firm_project" class="col-12 col-md-6">-->
+<!--                <h5 style="color:blue;">Case Details</h5>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-4">-->
+<!--                        <strong>Case Type</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_case_type_id.name" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>CNR Number</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_case_number" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Filing Number</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_case_file_number" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Case File Date</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.customer_case_file_date" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Court</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_court_id.name" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Lawyers</strong>-->
+<!--                    </div>-->
+<!--                    <t t-set="lawyers_names" t-value="project.custom_get_lawyers_value()"/>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="lawyers_names" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Witness</strong>-->
+<!--                    </div>-->
+<!--                    <t t-set="witness_names" t-value="project.custom_get_witness_value()"/>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="witness_names" readonly="readonly"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-4">-->
+<!--                        <strong>Next Hearing Date</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-8">-->
+<!--                        <input type="text" class="form-control" t-att-value="project.custom_next_hearing_date" readonly="readonly"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//t[@t-set='card_body']//div[@class='row']" position="after">-->
+<!--            <div class="row" t-if="project.custom_case_description">-->
+<!--                <div t-if="project.custom_case_description" t-attf-class="col-12">-->
+<!--                    <hr class="mb-1"/>-->
+<!--                    <h5>Case Description</h5>-->
+<!--                    <hr class="mb-1"/>-->
+<!--                    <div class="py-1 px-2 bg-100 small" t-field="project.custom_case_description"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="portal_my_task_inherit_cases" name="My Task/Cases" inherit_id="project.portal_my_task">
+        <xpath expr="//div[@t-if='task.user_ids or task.partner_id']" position="after">
+            <div t-if="task.is_law_firm_task" class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-4">
+                        <strong>Hearing Date</strong>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" t-att-value="task.custom_hearing_date" readonly="readonly"/>
+                    </div>
+                    <div class="col-4">
+                        <strong>Purpose of Hearing</strong>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" t-att-value="task.custom_hearing_details" readonly="readonly"/>
+                    </div>
+                </div>
+            </div>
+            <div t-if="task.is_law_firm_task" class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-4">
+                        <strong>Last Hearing Date</strong>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" t-att-value="task.custom_last_hearing_date" readonly="readonly"/>
+                    </div>
+                    <div class="col-4">
+                        <strong>Next Hearing Date</strong>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" t-att-value="task.custom_next_hearing_date" readonly="readonly"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

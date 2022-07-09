@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+	  	<record id="edit_project_inherit_law_firms_progress_billing_custom" model="ir.ui.view">
+	        <field name="name">project.inherit.law.firms.progress.billing.custom</field>
+	        <field name="model">project.project</field>
+	        <field name="inherit_id" ref="project.edit_project"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//div[@name='button_box']" position="inside">
+	            	<button class="oe_stat_button" name="custom_show_get_my_billing_invoices" string="Project Invoices" type="object" icon="fa-bars" groups="project.group_project_manager"/>
+	            </xpath>
+	        </field>
+	    </record>
+  </data>
+</odoo>

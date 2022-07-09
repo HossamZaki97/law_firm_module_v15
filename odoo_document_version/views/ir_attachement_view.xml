@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_attachment_form_inherit_version" model="ir.ui.view">
+            <field name="name">ir.attachment.inherit.version</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='name']" position="before">
+                     <div class="oe_button_box" name="button_box">
+                        <button name="action_previous_version" string="Previous Version" type="object" 
+                                class="oe_stat_button" icon="fa-tasks"
+                                attrs="{'invisible':[('prev_attachment_id', '=',False)]}">
+                        </button>
+                        <button name="action_next_version" string="Next Version" type="object" 
+                                class="oe_stat_button" icon="fa-tasks"  
+                                attrs="{'invisible':[('new_attachment_id', '=',False)]}">
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//group/group[2]" position="after">
+                    <group string="Version" name="version">
+                        <field name="custom_version"/>
+                        <field name="prev_attachment_id"/>
+                        <field name="new_attachment_id"/>
+                        <field name="custom_display_name"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_attachment_tree_inherit_version" model="ir.ui.view">
+            <field name="name">ir.attachment.inherit.tree.version</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                        <field name="custom_version"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_document_file_kanban_inherit_version" model="ir.ui.view">
+            <field name="name">ir.attachment.inherit.kanban.version</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="mail.view_document_file_kanban"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//div[@class='o_kanban_record_body']" position="inside"> -->
+                <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
+                    <div class="oe_name">
+                        Version: <field name="custom_version"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

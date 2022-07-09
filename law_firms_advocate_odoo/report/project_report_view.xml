@@ -1,0 +1,23 @@
+<odoo>
+  	<data>
+	  	<record id="custom_view_task_project_user_search_inherit_cases=" model="ir.ui.view">
+	        <field name="name">report.project.task.user.search.cases</field>
+	        <field name="model">report.project.task.user</field>
+	        <field name="inherit_id" ref="project.view_task_project_user_search"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//filter[@name='unassigned']" position="after">
+	            	<filter string="Cases" name="my_cases" domain="[('project_id.is_law_firm_project', '=', 1)]"/>
+            	</xpath>
+	        </field>
+	    </record>
+
+	    <record id="action_custom_project_task_user_cases_tree" model="ir.actions.act_window">
+            <field name="name">Cases Analysis</field>
+            <field name="res_model">report.project.task.user</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="search_view_id" ref="project.view_task_project_user_search"/>
+            <field name="context">{'search_default_my_cases':1}</field>
+            <field name="help"></field>
+        </record>
+    </data>
+</odoo>

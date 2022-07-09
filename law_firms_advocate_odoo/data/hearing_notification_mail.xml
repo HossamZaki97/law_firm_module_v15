@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_template_hearing_notification_mail" model="mail.template">
+            <field name="name">Notification: Court Case Hearing Notification Mail</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="email_from">${(object.company_id.email or user.email_formatted) |safe}</field>
+            <field name="email_to">${'receiver_email' in ctx and ctx['receiver_email'] or ''}</field>
+            <field name="subject">Your ${object.project_id.custom_case_number} Case Next Hearing - ${object.project_id.custom_next_hearing_date or 'n/a'}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear ${'receiver_name' in ctx and ctx['receiver_name'] or ''},<br/><br/>
+        This is reminder email for case hearing will be held on "${object.project_id.custom_next_hearing_date}".<br/><br/>
+        So kindly attend it.<br/><br/>
+        For any further question feel free to contact us.
+        <br /><br />
+        Regards,<br/>
+        ${object.company_id.name |safe}
+    </p>
+</div>
+            </field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <!-- <field name="user_signature" eval="False"/> -->
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        
+        <menuitem name="Document" id="document_directory_extension.main_document_extension_menu"  
+                  groups="document_directory_extension_security.group_document_user,base.group_user"/>
+        
+        <menuitem name="All Documents" id="document_directory_extension.menu_document_id" parent="document_directory_extension.main_document_extension_menu" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        <menuitem name="All Documents" id="document_directory_extension.menu_document_under" parent="document_directory_extension.menu_document_id" action="base.action_attachment"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        
+        <menuitem name="Directories" id="document_directory_extension.menu_document_directory" parent="document_directory_extension.main_document_extension_menu" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" sequence = "1" />
+        <menuitem name="Directories" id="document_directory_extension.menu_document_directories" parent="document_directory_extension.menu_document_directory" action="document_directory_extension.action_document_display"
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user"/>
+        <menuitem name="Directories Structure" id="document_directory_extension.menu_document_directory_structure" 
+                  groups="document_directory_extension.group_document_manager,document_directory_extension_security.group_document_user" parent="document_directory_extension.menu_document_directory" action="document_directory_extension.document_tree_hierarchy"/>
+        
+        <record id="document_directory_form_view_inherit_tags" model="ir.ui.view">
+            <field name="name">document.directory.inherit_form</field>
+            <field name="model">document.directory</field>
+            <field name="inherit_id" ref="document_directory_extension.document_directory_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page name="users" string="Users">
+                        <group>
+                            <group>
+                                <field name="user_ids" widget="many2many_tags">
+                                </field>
+                            </group>
+                            <group></group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[2]/field[@name='model_id']" position="after">
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="document_directory_tree_view_inherit_tags" model="ir.ui.view">
+            <field name="name">document.directory.inherit.tree</field>
+            <field name="model">document.directory</field>
+            <field name="inherit_id" ref="document_directory_extension.document_directory_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="document_directory_search_view_inherit_tags" model="ir.ui.view">
+            <field name="name">document.directory.inherit.search</field>
+            <field name="model">document.directory</field>
+            <field name="inherit_id" ref="document_directory_extension.document_directory_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="tag_ids" />
+                    <field name="user_ids"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="action_emp_document_display_all" model="ir.actions.act_window">
+            <field name="name">My Documents</field>
+            <field name="res_model">ir.attachment</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('create_uid','=',uid)]</field>
+        </record>
+        
+        <menuitem name="My Documents" parent="document_directory_extension.main_document_extension_menu" id="emp_documents_parent_menu" 
+                  groups="base.group_user" />
+        
+        <menuitem name="My Documents" parent="emp_documents_parent_menu" id="emp_documents_menu" 
+                  groups="base.group_user" action="action_emp_document_display_all"/>
+    
+    </data>
+</odoo>

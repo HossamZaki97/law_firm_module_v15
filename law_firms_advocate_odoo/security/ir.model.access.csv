@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+custom_access_case_type_project_manager,case.type.project.manager,law_firms_advocate_odoo.model_case_type,project.group_project_manager,1,1,1,1
+custom_access_case_type_project_user,case.type.project.user,law_firms_advocate_odoo.model_case_type,project.group_project_user,1,0,0,0
+custom_access_fir_police_station_project_manager,fir.police.station.project.manager,law_firms_advocate_odoo.model_fir_police_station,project.group_project_manager,1,1,1,1
+custom_access_fir_police_station_project_user,fir.police.station.project.user,law_firms_advocate_odoo.model_fir_police_station,project.group_project_user,1,0,0,0
+custom_access_case_court_project_manager,case.court.project.manager,law_firms_advocate_odoo.model_case_court,project.group_project_manager,1,1,1,1
+custom_access_case_court_project_user,case.court.project.user,law_firms_advocate_odoo.model_case_court,project.group_project_user,1,0,0,0

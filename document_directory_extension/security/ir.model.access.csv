@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_document_employee,document_employee,model_document_directory,base.group_user,1,0,0,0
+advance_document_manager,document_manager,model_document_directory,document_directory_extension.group_document_manager,1,1,1,1
+advance_document_sequence,document_manager,model_document_directory,document_directory_extension.group_document_manager,1,1,1,1
+base.access_res_groups_group_user,res_groups.group_user,base.model_res_groups,base.group_user,1,1,1,1

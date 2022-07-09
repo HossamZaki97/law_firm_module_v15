@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_schedule_activity_dashboard,schedule_activity.dashboard,model_schedule_activity_dashboard,base.group_user,1,0,0,0
+access_schedule_activity_dashboard_manager,access.schedule.activity.dashboard.manager,model_schedule_activity_dashboard,schedule_activity_global.group_scheduled_manager,1,1,1,1

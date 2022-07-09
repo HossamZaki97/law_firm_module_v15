@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="jobcost_sheet_wiz_form">
+            <field name="name">jobcosting.invoice.form</field>
+            <field name="model">jobcost.invoice</field>
+                <field name="arch" type="xml">
+                    <form string="Job Cost Invoice">
+                        <p>This wizard will create customer invoice for selectd customer.</p>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="material_invoice" help="Tick the box if you want to include material uninvoiced lines into customer invoice."/>
+                                <p style="color:green;" colspan="6">Tick the box if you want to include material uninvoiced lines into customer invoice.</p><br/>
+                                <seperator/>
+                                <field name="labour_invoice" help="Tick the box if you want to include labour uninvoiced lines into customer invoice."/>
+                                <p style="color:green;" colspan="6">Tick the box if you want to include labour uninvoiced lines into customer invoice.</p><br/>
+                                <seperator/>
+                                <field name="overhead_invoice" help="Tick the box if you want to include overhead uninvoiced lines into customer invoice."/>
+                                <p style="color:green;" colspan="6">Tick the box if you want to include overhead uninvoiced lines into customer invoice.</p>
+                            </group>
+                            <group>
+                                <field name="invoice_date"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="create_jobcost_invoice" type="object" string="Create Invoice" class="btn-primary"/>
+                            or
+                            <button string="_Cancel" class="btn-default" special="cancel" />
+                        </footer>
+                    </form>
+                </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_job_costing_invoice">
+            <field name="name">Create Customer Invoice</field>
+            <field name="res_model">jobcost.invoice</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="jobcost_sheet_wiz_form"/>
+<!--            <field name="view_type">form</field>-->
+            <field name="target">new</field>
+        </record>
+   </data>
+</odoo>

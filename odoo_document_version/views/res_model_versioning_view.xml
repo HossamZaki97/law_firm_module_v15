@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="document_versioning_form_view" model="ir.ui.view">
+            <field name="name">reduce.model.versioning.form.view</field>
+            <field name="model">reduce.model.versioning</field>
+            <field name="arch" type="xml">
+                <form name="">
+                    <sheet>
+                        <group name="Document Version">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="Restricted Models" string="Restricted Models/Forms">
+                                <field name="res_model_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="document_versioning_tree_view" model="ir.ui.view">
+            <field name="name">reduce.model.versioning.tree</field>
+            <field name="model">reduce.model.versioning</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="document_versioning_search_view" model="ir.ui.view">
+            <field name="name">reduce.model.versioning.search</field>
+            <field name="model">reduce.model.versioning</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                     <group expand="0" string="Group By">
+                        <filter string="Company" name="company_id" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_document_versioning" model="ir.actions.act_window">
+            <field name="name">Attachments Version Restriction Config</field>
+            <field name="res_model">reduce.model.versioning</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Help for Action</field>
+        </record>
+
+        <menuitem id="menu_document_versioning" name="Document Versioning" parent="base.menu_custom"/>
+        <menuitem id="menu_item_document_versioning" name="Attachments Version Restriction Config" 
+                  action="action_document_versioning" parent="menu_document_versioning"/>
+        <!-- <menuitem id="menu_item_document_attachments" name="Attachments" action="base.action_attachment" 
+                  parent="menu_document_versioning"/> -->
+            
+    </data>
+</odoo>

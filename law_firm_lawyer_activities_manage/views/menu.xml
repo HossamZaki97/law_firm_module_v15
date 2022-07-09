@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+  		<menuitem name="Dashboard" id="law_activity_dashboard_custom" parent="law_firms_advocate_odoo.custom_advocate_main_menu" action="schedule_activity_dashboard.schedule_activity_dashboard_action" sequence="0"/>
+
+  		<!-- Configuration -->
+
+  		<menuitem name="Schedule Activity" id="law_schedule_activity_custom" parent="law_firms_advocate_odoo.custom_case_configuration_main_menu" action="schedule_activity_dashboard.action_window"/>
+
+  		<!-- Activity -->
+
+  		<menuitem name="Activity" id="custom_law_document_menu"
+        parent="law_firms_advocate_odoo.custom_advocate_main_menu" sequence="4"/>
+
+        <menuitem name="Dashboard" id="law_activity_dashboard_custom" parent="custom_law_document_menu" action="schedule_activity_dashboard.schedule_activity_dashboard_action"/>
+
+        <menuitem name="All Activities" id="law_schedule_activity_child_menu_custom" parent="custom_law_document_menu"
+                  action="schedule_activity_global.mail_activity_action_manager" groups="schedule_activity_global.group_scheduled_manager"/>
+
+        <menuitem name="My Team Activities" id="law_schedule_team_activity_menu_custom" parent="custom_law_document_menu"
+                  action="schedule_activity_global.mail_activity_action_supervisor" groups="schedule_activity_global.group_scheduled_supervisor"/>
+        <menuitem name="My Activities" id="law_my_schedule_activity_menu_custom" parent="custom_law_document_menu"
+                  action="schedule_activity_global.mail_activity_action_user" groups="base.group_user"/>
+  </data>
+</odoo>

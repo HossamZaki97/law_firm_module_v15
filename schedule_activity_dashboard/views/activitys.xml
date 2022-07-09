@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="custom_action_smart_box">
+         <field name="name">My Activities</field>
+         <field name="res_model">mail.activity</field>
+<!--odoo13         <field name="view_type">form</field>-->
+         <field name="view_mode">tree,form,kanban,pivot,calendar,search,graph</field>
+        </record>
+    </data>
+</odoo>

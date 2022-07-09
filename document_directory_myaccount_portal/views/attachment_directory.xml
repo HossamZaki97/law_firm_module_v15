@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_attachment_form_inherit_res_partner" model="ir.ui.view">
+            <field name="name">Ir attachment.form</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mimetype']" position="after">
+                    <field name="partner_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+    </data>
+</odoo>

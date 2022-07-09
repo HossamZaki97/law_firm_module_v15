@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    
+    <template id="report_job_costing_inherit_sale_price" inherit_id="odoo_job_costing_management.report_job_costing">
+        <xpath expr="//t/t/t/div/div/table/tbody/tr[7]/td[1]" position="replace">
+            <td>
+                <strong>Customer Invoice Billable Method</strong>
+            </td>
+            <td>
+               <span t-field="doc.billable_method"/>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_cost_line_ids']/table/thead/tr/th[8]" position="after">
+            <th class="text-right">Sale Price / Unit</th>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_cost_line_ids']/table/tbody/tr/td[8]" position="after">
+            <td class="text-right">
+                <span t-field="material_line.sale_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_cost_line_ids']/table/thead/tr/th[10]" position="after">
+            <th class="text-right">Customer Invoiced Qty</th>
+            <th class="text-right">Is Billable</th>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_cost_line_ids']/table/tbody/tr/td[10]" position="after">
+            <td class="text-right">
+                <span t-field="material_line.invoice_qty"/>
+            </td>
+            <td class="text-right">
+                <span t-field="material_line.billable"/>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_labour_line_ids']/table/thead/tr/th[8]" position="after">
+            <th class="text-right">Invoice Hour</th>
+            <th class="text-right">Is Billable</th>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_labour_line_ids']/table/tbody/tr/td[8]" position="after">
+            <td class="text-right">
+                <span t-esc="'%02d:%02d' % (int(str(labor_line.invoice_hours).split('.')[0]), int(float(str('%.2f' % labor_line.invoice_hours).split('.')[1])/100*60))"/>
+            </td>
+            <td class="text-right">
+                <span t-field="labor_line.billable"/>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_overhead_line_ids']/table/thead/tr/th[9]" position="after">
+            <th class="text-right">Sale Price / Unit</th>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_overhead_line_ids']/table/tbody/tr/td[9]" position="after">
+            <td class="text-right">
+                <span t-field="overhead_line.sale_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_overhead_line_ids']/table/thead/tr/th[11]" position="after">
+            <th class="text-right">Customer Invoiced Qty</th>
+            <th class="text-right">Is Billable</th>
+        </xpath>
+        <xpath expr="//t/t/t/div/div[@t-if='doc.job_overhead_line_ids']/table/tbody/tr/td[11]" position="after">
+            <td class="text-right">
+                <span t-field="overhead_line.invoice_qty"/>
+            </td>
+            <td class="text-right">
+                <span t-field="overhead_line.billable"/>
+            </td>
+        </xpath>
+    </template>
+
+    </data>
+</odoo>

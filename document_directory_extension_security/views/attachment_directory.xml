@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+        <record id="view_attachment_form_inherit_tags" model="ir.ui.view">
+            <field name="name">Ir attachment.form</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='directory_id']" position="after">
+                    <field name="dirctory_tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_attachment_tree_inherit_tags" model="ir.ui.view">
+            <field name="name">Ir attachment.tree</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="dirctory_tag_ids" widget="many2many_tags"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ir_attachment_inherit_tags_search_view" model="ir.ui.view">
+            <field name="name">Ir attachment.search</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="dirctory_tag_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

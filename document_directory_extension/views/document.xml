@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="document_directory_form_view">
+            <field name="name">document.directory form</field>
+            <field name="model">document.directory</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="show_attachment" icon="fa-pencil-square-o">
+                            <field name="attachment_count" string="Documents" widget="statinfo"/>
+                         </button>
+                    </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="parent_id"/>
+                                <field name="sequence_id"/>
+                                <field name="res_id"/>
+                            </group>
+                            <group>
+                               <field name="dir_type"/>
+                               <field name="code"/>
+                               <field name="model_id" attrs="{'required': [('dir_type', '=', 'dir')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Groups">
+                                <field name="group_ids" nolabel="1">
+                                </field>
+                            </page>
+                    </notebook>
+                    </sheet>
+                  </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="document_directory_tree_view">
+            <field name="name">document.directory tree</field>
+            <field name="model">document.directory</field>
+            <field name="arch" type="xml">
+                <tree>
+                        <field name="name"/>
+                        <field name="model_id"/>
+                        <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="document_directory_search_view" model="ir.ui.view">
+            <field name="name">document.directory search</field>
+            <field name="model">document.directory</field>
+            <field name="arch" type="xml">
+                <search string="Document Directory search" >
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="parent_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="Parent Directory" context="{'group_by':'parent_id'}"/>
+                        <filter name="Model" context="{'group_by':'model_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_document_display" model="ir.actions.act_window">
+            <field name="name">Directories</field>
+            <field name="res_model">document.directory</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="document_directory_tree_view"/>
+            <field name="help">Create Document Directory</field>
+        </record>
+        
+        <record id="document_tree_hierarchy_shov" model="ir.ui.view">
+            <field name="name">document.directory.hierarchy</field>
+            <field name="model">document.directory</field>
+            <field name="field_parent">children_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Document  Hierarchy">
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+     </record>
+        
+        <record id="document_tree_hierarchy" model="ir.actions.act_window">
+            <field name="name">Document Directories Hierarchy</field>
+            <field name="res_model">document.directory</field>
+            <field name="view_id" ref="document_tree_hierarchy_shov"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+        </record>
+        
+        <!--ct_window
+          id="action_document_attachment1"
+          name="Do"
+          domain="[('directory_id', '=', active_id)]"
+          res_model="ir.attachment"
+          src_model="document.directory"
+          key2="tree_but_open"
+       /-->
+
+        <menuitem name="Document" web_icon="document_directory_extension,static/description/icon.png"  id="main_document_extension_menu" groups="document_directory_extension.group_document_manager"/>
+        <menuitem name="Documents" id="menu_document_id" parent="main_document_extension_menu"/>
+        <menuitem name="Documents" id="menu_document_under" parent="menu_document_id" action="base.action_attachment"/>
+        <menuitem name="Directories" id="menu_document_directory" parent="main_document_extension_menu" sequence = "1" />
+        <menuitem name="Directories" id="menu_document_directories" parent="menu_document_directory" action="action_document_display"/>
+        <menuitem name="Directories Structure" id="menu_document_directory_structure" parent="menu_document_directory" action="action_document_display"/>
+        
+    </data>
+</odoo>

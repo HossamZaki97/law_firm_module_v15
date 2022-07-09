@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <!-- Sequences for Directory Sequence -->
+        <record id="document_directory_seq" model = "ir.sequence">
+            <field name="name">Directory Sequence.seq</field>
+            <field name="code">document.directory.seq</field>
+            <field name="prefix">DOC/</field>
+            <field name="padding">4</field>
+        </record>
+        
+    </data>
+</odoo>

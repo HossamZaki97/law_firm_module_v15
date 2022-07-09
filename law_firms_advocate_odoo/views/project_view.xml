@@ -1,0 +1,161 @@
+<odoo>
+  <data>
+
+    <record id="act_custom_project_hearing_all" model="ir.actions.act_window">
+        <field name="name">Case Hearings</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+        <field name="context">{
+            'pivot_row_groupby': ['user_id'],
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+            'default_is_law_firm_task': True
+        }</field>
+        <field name="domain">[('is_law_firm_task', '=', True)]</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click <i>Create</i> to start a new task.
+            </p><p>
+                To get things done, use activities and status on tasks.<br/>
+                Chat in real time or by email to collaborate efficiently.
+            </p>
+        </field>
+    </record>
+
+    <record id="act_custom_project_hearing_task_all" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+        <field name="context">{
+            'pivot_row_groupby': ['user_id'],
+            'search_default_project_id': [active_id],
+            'default_project_id': active_id,
+        }</field>
+        <field name="domain">[('is_law_firm_task', '=', False)]</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click <i>Create</i> to start a new task.
+            </p><p>
+                To get things done, use activities and status on tasks.<br/>
+                Chat in real time or by email to collaborate efficiently.
+            </p>
+        </field>
+    </record>
+
+    <record id="edit_project_inherit_law_firms_advovate" model="ir.ui.view">
+        <field name="name">project.inherit.law_firms_advovate</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']//button[@icon='fa-tasks']" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_law_firm_project','!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="action" attrs="{'invisible':[('is_law_firm_project','!=', True)]}" name="%(act_custom_project_hearing_all)d" icon="fa-tasks" string="Case Hearings">
+                </button>
+                <button class="oe_stat_button" type="object" attrs="{'invisible':[('is_law_firm_project','!=', True)]}" string="Sales" name="custom_show_get_my_cases_sale_order" icon="fa-usd">
+                </button>
+                <button class="oe_stat_button" type="object" attrs="{'invisible':[('is_law_firm_project','!=', True)]}" string="Invoices" name="custom_show_get_my_cases_invoice" icon="fa-pencil-square-o"></button>
+                <button class="oe_stat_button" type="action" attrs="{'invisible':[('is_law_firm_project','!=', True)]}" string="Tasks" name="%(act_custom_project_hearing_task_all)d" icon="fa-tasks"></button>
+            </xpath>
+            <xpath expr="//notebook/page[@name='settings']//group[@name='extra_settings']" position="after">
+                <group name="case_details" string="Case Details" attrs="{'invisible':[('is_law_firm_project','!=', True)]}">
+                    <field name="is_law_firm_project"/>
+                    <field name="custom_case_type_id" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_case_number" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_case_file_number" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="customer_case_file_date" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_court_id" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_court_add_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                    <field name="custom_lawyer_ids" widget="many2many_tags" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_witness_ids" widget="many2many_tags"/>
+                    <field name="custom_next_hearing_date"/>
+                </group>
+                <group name="opposite_details" string="Opposite Details" attrs="{'invisible':[('is_law_firm_project','!=', True)]}">
+                    <field name="custom_opposite_client" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                    <field name="custom_opposite_advocate" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                </group>
+                <group name="fir_details" string="FIR Details" attrs="{'invisible':[('is_law_firm_project','!=', True)]}">
+                    <field name="custom_fir_number"/>
+                    <field name="custom_fir_police_station_id"/>
+                    <field name="custom_po_station_add_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="before">
+                <field name="custom_hearing_alrt_days" attrs="{'invisible':[('is_law_firm_project','!=', True)]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[last()]" position="after" >
+                <page string="Case Details" name="case_details" attrs="{'invisible':[('is_law_firm_project','!=', True)]}"> 
+                    <field name="custom_case_description" attrs="{'required': [('is_law_firm_project', '=', True)]}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_kanban_inherit_law_firms_advovate" model="ir.ui.view">
+        <field name="name">project.inherit.law_firms_advovate.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='analytic_account_id']" position="after">
+                <field name="is_law_firm_project"/>
+                <field name="custom_next_hearing_date"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]//a[hasclass('o_project_kanban_box')]" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_law_firm_project','!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]//a[hasclass('o_project_kanban_box')]" position="after">
+                <div attrs="{'invisible':[('is_law_firm_project','!=', True)]}">
+                    <strong><span class="o_label" style="color:red;">Next Hearing Date :</span>
+                    <i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> <t t-esc="record.custom_next_hearing_date.value" t-attf-class="oe_kanban_text_red"/></strong>
+                </div>
+                <a class="o_project_kanban_box" attrs="{'invisible':[('is_law_firm_project','!=', True)]}" name="%(act_custom_project_hearing_all)d" type="action">
+                    <div>
+                        <span class="o_label">Case Hearings</span>
+                    </div>
+                </a>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_form2_inherit_law_firms_advovate" model="ir.ui.view">
+        <field name="name">project.task.inherit.law_firms_advovate</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='legend_done']" position="after" >
+                <field name="is_law_firm_task" invisible="1"/>
+                <field name="custom_hearing_date" attrs="{'invisible':[('is_law_firm_task','!=', True)]}"/>
+                <field name="custom_hearing_details" attrs="{'invisible':[('is_law_firm_task','!=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after" >
+                <field name="custom_last_hearing_date" attrs="{'invisible':[('is_law_firm_task','!=', True)]}"/>
+                <field name="custom_next_hearing_date" attrs="{'invisible':[('is_law_firm_task','!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="custom_action_open_view_cases_all" model="ir.actions.act_window">
+        <field name="name">My Cases</field>
+        <field name="res_model">project.project</field>
+        <field name="domain">[('is_law_firm_project', '=', True)]</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="project.view_project_kanban"/>
+        <field name="search_view_id" ref="project.view_project_project_filter"/>
+        <field name="context">{'default_is_law_firm_project': True}</field>
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No case found. Let's create one!
+            </p>
+        </field>
+    </record>
+
+    <record id="project.open_view_project_all" model="ir.actions.act_window">
+        <field name="domain">[('is_law_firm_project', '=', False)]</field>
+    </record>
+
+  </data>
+</odoo>

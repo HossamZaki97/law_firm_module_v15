@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="create_job_costsheet_law_wiz_view" model="ir.ui.view">
+            <field name="name">create.job.costsheet.wiz.view</field>
+            <field name="model">law.request.jobcostsheet.wizard</field>
+                <field name="arch" type="xml">
+                    <form string="Create or Edit Material Planning Job Costsheet.">
+                        <h4>This wizard will allow you to create or edit job cost sheet for this law request project.</h4>
+                        <group>
+                            <group>
+                                <field name="costsheet_type" widget="radio"/>
+                                <field name="job_costsheet_id" attrs="{'invisible': [('costsheet_type', '!=','update_costsheet' )], 
+                                       'required': [('costsheet_type', '=','update_costsheet')]}" options="{'no_create': True}" domain="[('state','not in',('done','cancel')),('project_id', '=', project_id)]" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="project_id" widget="selection"/>
+                                <field name="task_id" domain="[('project_id', '=', project_id)]" widget="selection"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="custom_create_edit_jobcostsheet" type="object" string="Create Sheet" class="btn-primary" attrs="{'invisible': [('costsheet_type', '!=','create_costsheet' )]}" />
+                            <button name="custom_create_edit_jobcostsheet" type="object" string="Update Sheet" class="btn-primary" attrs="{'invisible': [('costsheet_type', '!=','update_costsheet')]}" />
+                            <button string="Cancel" class="btn-default" special="cancel"/>
+                        </footer>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_create_edit_job_costsheet_custom" model="ir.actions.act_window">
+            <field name="name">Law Request Job Cost Sheet</field>
+            <field name="res_model">law.request.jobcostsheet.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="create_job_costsheet_law_wiz_view"/>
+            <field name="target">new</field>
+        </record>
+        
+   </data>
+</odoo>

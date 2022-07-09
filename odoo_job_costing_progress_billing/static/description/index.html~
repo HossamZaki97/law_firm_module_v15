@@ -1,0 +1,131 @@
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+           <h2 class="oe_slogan" style="color:olive;"><b>Customer Invoice from Job Cost Sheet</h2>
+           <p class="oe_mt32" style="color:olive;">
+                This module allow you to create customer invoice directly from Job Cost Sheet.<br>
+           </p>
+<p style="color:olive;"> <b>Features:</b><br>
+- Allow you to create customer invoice from job cost sheet.<br>
+- Allow you to select option to take consideration of customer invoice qty. (Based on Actual Purchase Qty, Based On Actual Vendor Bill Qty, >Based Manual Invoice).<br>
+- Allow you to have option on wizard to create invoice where you can choose whether you want to raise invoice for material, labour, overheads.
+- Auto compute customer invoiced qty. That means you can run create customer invoice wizard as manytime from job cost sheet and it won't consider qty which has been already invoiced to your customer. So it dynamically maintain hisotry of already invoiced qty for all three tabs (material, labour, overheads). Every time you run wizard it will only consider uninvoiced qty only.<br>
+- You can view all created invoices for that job cost sheet using smart button.<br>
+- For more please see video.<br>
+</p>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan"><b style="color:CRIMSON;">Job Cost Sheet Form- Customer Invoice Billable Method</b></h2>
+        <p style="color:crimson;">Option 1 => Customer Invoice Billable Method is <b>Based on Actual Purchase Qty</b>.</p> 
+        <p style="color:olive;">-> Based on Actual Purchased Qty Values on Material from Actual Purchase Qty, Labour from Actual Timesheet Hours, Overhead from Actual Purchased Qty. Actual purchased qty will be consider to raise customer invoice.</p>
+        <p style="color:crimson;">Option 2 => Customer Invoice Billable Method is <b>Based On Actual Vendor Bill Qty</b>.</p> 
+        <p style="color:olive;">--> Based On Actual Vendor Billed Qty Take the Values on Material from Actual Vendor Bill Qty, Labour from Actual Timesheet Hours, Overhead from Actual Vendor Billed Qty. Actual vendor billed qty will be consider to raise customer invoice.</p>
+        <p style="color:crimson;">Option 3 =>Customer Invoice Billable Method is <b>Based Manual Invoice</b>.</p> 
+        <p style="color:olive;">-->Based On Manual Invoice Take the Values on Material from Based On Manual Invoice, Labour from Actual Timesheet Hours, Overhead from Based On Manual Invoice. You have to enter invoice qty manually on material, labour, timesheet which will be consider by customer invoice creation.</p>
+        <div class="oe_demo oe_screenshot">
+           <img src="s1.png">
+        </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan"><b style="color:CRIMSON;">Job Cost Sheet- Create Invoice Button</b></h2>
+       <p style="color:olive;">Customer Invoice Billable Method is Based on Actual Purchase Qty.</p> 
+       <p style="color:olive;">Based on Actual Purchase Qty Take the Values on Material Tab from Actual Purchase Qty, Labour from Actual Timesheet Hours, Overhead from Actual Purchase Qty.</p>
+       <div class="oe_demo oe_screenshot">
+           <img src="s2.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan"><b style="color:CRIMSON;">Create Customer Invoice Wizard - Job Cost Sheet</b></h2>
+        <p></p> 
+       <div class="oe_demo oe_screenshot">
+           <img src="s3.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan"><b style="color:CRIMSON;">Created Invoice from Job Cost Sheet</b></h2>
+        <p></p> 
+       <div class="oe_demo oe_screenshot">
+           <img src="s5.png">
+           <img src="s6.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan"><b style="color:CRIMSON;">Job Cost Sheet Set Customer Invoiced Qty Automatically</b></h2>
+        <p style="color:olive;">Customer Invoice Billable Method is Based on Actual Purchase Qty.</p> 
+        <p style="color:olive;">-> Based on Actual Purchase Qty Take the Values on Material from Actual Purchase Qty also Set The Invoice Qty into Customer Invoiced Qty, Labour from Actual Timesheet Hours Set into Invoiced Hours, Overhead from Actual Purchase Qty also Set The Invoice Qty into Customer Invoiced Qty.</p>
+       <div class="oe_demo oe_screenshot">
+           <img src="s7.png">
+       </div>
+   </div>
+</section>
+<section class="oe_container" >
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">
+            <strong><font style="color:#2dd280;" class="text-epsilon">Contact / Support<br/></font></strong>
+            <strong><font style="color:crimson" class="text-epsilon">Introducing</font>
+            <font style="color:crimson;" class="text-epsilon">Probuse Consulting Services Pvt. Ltd.</font></strong>
+          </h2>
+       <div class="oe_span6">
+           <div class="mt32 col-md-10">
+           <div class="oe_picture" style="margin: 25px 10%;">
+               <a  target='new' href="http://www.probuse.com/">
+                   <img src="logo.png">
+               </a>
+           </div>
+           <p class="oe_mt32">
+               <font style="color:crimson;">If you need any help or want more additional features, you may contact us through:</font><br/>
+               <font style="color:crimson;">Email: <a href="contact@probuse.com">contact@probuse.com</a> <br/>
+               <font style="color:crimson;">Website: </font><a href="http://www.probuse.com/" target='new'><u>www.probuse.com</u></a> <br/>
+               <font style="color:crimson;">Skype: mustufa_probuse</font><br/>
+           </p>
+           <p>
+                <h2>
+                    <a href="https://www.facebook.com/probusecs" target="new">
+                      <i class="fa fa-facebook-square" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://twitter.com/mustufa_odoo" target="new">
+                      <i class="fa fa-twitter" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mustufa-rangwala-odoo-openerp-0a46777/" target="new">
+                      <i class="fa fa-linkedin" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCHlyoC4khP44M1cOCJXo2FQ" target="new">
+                      <i class="fa fa-youtube-play" style="font-size:38px;"></i>
+                    </a>
+                    <a href="https://plus.google.com/u/0/113284573788891837715/posts" target="new" rel="publisher">
+                      <i class="fa fa-google-plus-square" style="font-size:38px;"></i>
+                    </a>
+              </h2>
+            </p>
+           </div>
+      </div>
+      <div class="mt32 col-md-5">
+           <p style="text-align: justify; ">
+            <font class="text-epsilon" style="color:crimson;">Probuse Consulting Service Pvt Ltd is an Software and Web development specialist which offers complete business application together. We are well experienced to provide a face for your business on the software and Internet level.</font>
+          </p>
+          <p style="text-align: justify;">
+            <font class="text-epsilon" style="color:crimson">Probuse Consulting Service Pvt Ltd is a specialist in Odoo/OpenERP services and could give your business open source hand to drive.</font>
+          </p>
+            <h3 class="o_animate o_anim_bounce_in" style="text-align: left; animation-play-state: paused;">
+                <font style="font-size: 18px;color:#ff8000;" class="text-epsilon"><strong>Our Services</strong></font>
+            </h3>
+            <ul style="list-style-type:square">
+                <a href="http://www.probuse.com/page/odoo-implementation" target="new"><li list-style-type: "*";><p style="text-align: left; color:crimson;">Odoo Implementation</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-support" target="new"><li><p style="text-align: left; color:crimson;">Odoo Support</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-customization" target="new"><li><p style="text-align: left; color:crimson;">Odoo Customization</p></li></a>
+                <a href="http://www.probuse.com/page/odoo-migration" target="new"><li><p style="text-align: left; color:crimson;">Odoo Migration</p></a></li>
+                <a href="http://www.probuse.com/page/odoo-training" target="new"><li><p style="text-align: left; color:crimson;">Odoo Training</p></a></li>
+            </ul>
+           </p>
+       </div>
+   </div>
+</section>

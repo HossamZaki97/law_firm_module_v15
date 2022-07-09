@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="job_costing_form_view_inherit_law_request" model="ir.ui.view">
+            <field name="name">job.costing.form.view.inherit.law.equest</field>
+            <field name="model">job.costing</field>
+            <field name="inherit_id" ref="odoo_job_costing_management.job_costing_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='job_cost_material_page']//tree//field[@name='cost_price']" position="after">
+                    <field name="law_job_cost_line" invisible='1'/>
+                </xpath>
+                <xpath expr="//page[@name='job_cost_labour_page']//tree//field[@name='cost_price']" position="after">
+                    <field name="law_job_cost_line" invisible='1'/>
+                </xpath>
+                <xpath expr="//page[@name='job_cost_overhead_page']//tree//field[@name='cost_price']" position="after">
+                    <field name="law_job_cost_line" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
