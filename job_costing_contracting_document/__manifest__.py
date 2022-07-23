@@ -12,7 +12,7 @@
         'odoo_document_version',
         'document_directory_extension_security',
         'document_directory_extension',
-        'document_directory_myaccount_portal',
+        # 'document_directory_myaccount_portal',
     ],
     'license': 'Other proprietary',
     'currency': 'EUR',

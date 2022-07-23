@@ -116,7 +116,7 @@ website portal share document
     'assets': {
         'web.assets_frontend': [
             'document_directory_myaccount_portal/static/src/css/website_portal_templates.css',
-            'document_directory_myaccount_portal/static/src/js/website_portal_templet.js',
+            # 'document_directory_myaccount_portal/static/src/js/website_portal_templet.js',
         ],
     },
 }
