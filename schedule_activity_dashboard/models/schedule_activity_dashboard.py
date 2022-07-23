@@ -11,6 +11,7 @@ from dateutil.relativedelta import relativedelta
 
 class ScheduleActivityDashboard(models.Model):
     _name = 'schedule_activity.dashboard'
+    _description = 'schedule_activity.dashboard'
     _order = 'sequence'
 
     cus_res_model_id = fields.Many2one(

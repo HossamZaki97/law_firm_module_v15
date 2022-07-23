@@ -206,7 +206,7 @@ class JobCosting(models.Model):
                     ('cancel','Canceled'),
                   ],
         string='State',
-        track_visibility='onchange',
+        tracking=True,
         default='draft',
     )
     task_id = fields.Many2one(

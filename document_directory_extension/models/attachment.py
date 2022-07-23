@@ -58,46 +58,47 @@ class Attachment(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         #attachment = super(Attachment, self).create(vals)
-        attachment = super(Attachment, self).create(vals_list)
-        model = attachment.res_model #vals.get('res_model',False)
-        res_id = attachment.res_id #vals.get('res_id')
-        if model:
-            # directory = self.env['document.directory'].sudo().search([
-            #     ('model_id.model', '=', model),
-            #     '|',
-            #     ('res_id','=',res_id),
-            #     ('res_id','=',0)
-            # ], limit=1)
-            directory = self.env['document.directory'].sudo().search([
-                ('model_id.model', '=', model),
-                ('res_id','=',res_id),
-            ], limit=1)
-            if not directory:
+        attachments = super(Attachment, self).create(vals_list)
+        for attachment in attachments:
+            model = attachment.res_model #vals.get('res_model',False)
+            res_id = attachment.res_id #vals.get('res_id')
+            if model:
+                # directory = self.env['document.directory'].sudo().search([
+                #     ('model_id.model', '=', model),
+                #     '|',
+                #     ('res_id','=',res_id),
+                #     ('res_id','=',0)
+                # ], limit=1)
                 directory = self.env['document.directory'].sudo().search([
-                ('model_id.model', '=', model),
-                ('res_id','=',0)], limit=1)
-            if directory.group_ids:
-                flag= False
-                for group in directory.group_ids:
-                    external_id= group.get_external_id()[group.id]
-                    if self.env.user.has_group(str(external_id)):
-                        flag = True
-                if not flag:
-                    raise ValidationError(_("Sorry you don't have access for this document.'"))
-            if directory:
-                aname = attachment.name #vals.get('name', False)
-                # vals['number'] = self.env['ir.sequence'].next_by_code(directory.sequence_id.code)
-                attachment.number = self.env['ir.sequence'].next_by_code(directory.sequence_id.code)
-                attachment.update({
-                    'directory_id': directory.id
-                })
-                # vals.update({
-                #     'directory_id': directory.id
-                # })
-            else:
-                # vals['number'] = self.env['ir.sequence'].next_by_code('document.directory.seq')
-                attachment.number = self.env['ir.sequence'].next_by_code('document.directory.seq')
-        return attachment
+                    ('model_id.model', '=', model),
+                    ('res_id','=',res_id),
+                ], limit=1)
+                if not directory:
+                    directory = self.env['document.directory'].sudo().search([
+                    ('model_id.model', '=', model),
+                    ('res_id','=',0)], limit=1)
+                if directory.group_ids:
+                    flag= False
+                    for group in directory.group_ids:
+                        external_id= group.get_external_id()[group.id]
+                        if self.env.user.has_group(str(external_id)):
+                            flag = True
+                    if not flag:
+                        raise ValidationError(_("Sorry you don't have access for this document.'"))
+                if directory:
+                    aname = attachment.name #vals.get('name', False)
+                    # vals['number'] = self.env['ir.sequence'].next_by_code(directory.sequence_id.code)
+                    attachment.number = self.env['ir.sequence'].next_by_code(directory.sequence_id.code)
+                    attachment.update({
+                        'directory_id': directory.id
+                    })
+                    # vals.update({
+                    #     'directory_id': directory.id
+                    # })
+                else:
+                    # vals['number'] = self.env['ir.sequence'].next_by_code('document.directory.seq')
+                    attachment.number = self.env['ir.sequence'].next_by_code('document.directory.seq')
+        return attachments
 
     #@api.multi
     def write(self,vals):

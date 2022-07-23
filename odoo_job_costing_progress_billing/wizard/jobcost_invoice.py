@@ -5,7 +5,8 @@ from odoo.exceptions import ValidationError, UserError
 
 class JobcostInvoice(models.TransientModel):
     _name = 'jobcost.invoice'
-    
+    _description = 'jobcost.invoice'
+
     partner_id = fields.Many2one(
         'res.partner',
         required = True,

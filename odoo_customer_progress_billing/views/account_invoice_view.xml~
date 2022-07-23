@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+            
+        <record id="customer_progress_bill_add" model="ir.ui.view">
+            <field name="name">account.invoice.progress.form.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="progress_bill_title" attrs="{'readonly': [['state', 'not in', ['draft']]]}"/>
+                    <field name="project_id" attrs="{'readonly': [['state', 'not in', ['draft']]]}"/>
+                </xpath>
+                <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="after">
+                    <group string="Progress Billing Information">
+                        <group>
+                            <field name="total_progress_billing"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="invoice_to_date"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="remaining_progress_billing"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="previously_invoice"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="previously_invoice_due" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="current_invoice"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="less_paid_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_due"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                     </group>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
+

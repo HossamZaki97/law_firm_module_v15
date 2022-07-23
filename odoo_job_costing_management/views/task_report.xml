@@ -22,7 +22,10 @@
                             <tr>
                                 <td><span t-field="doc.project_id.name"/></td>
                                 <td><span t-field="doc.partner_id.name"/></td>
-                                <td><span t-field="doc.user_id.name"/></td>
+                                <td>
+<!--                                    <span t-field="doc.user_id.name"/>-->
+                                    <span t-esc="','.join([u.name for u in task.user_ids])"/>
+                                </td>
                                 <td><span t-field="doc.date_assign"/></td>
                                 <td><span t-field="doc.date_deadline"/></td>
                             </tr>

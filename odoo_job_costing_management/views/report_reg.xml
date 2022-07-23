@@ -18,6 +18,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">odoo_job_costing_management.project_report_id</field>
             <field name="report_file">odoo_job_costing_management.project_report_id</field>
+            <field name="binding_model_id" ref="model_project_project"/>
         </record>
         <!-- QWeb Reports for Project Task -->
 <!--        <report-->

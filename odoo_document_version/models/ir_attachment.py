@@ -97,7 +97,7 @@ class IrAttachment(models.Model):
         digits=(4, 1),
     )
     custom_display_name = fields.Char(
-        string="Display Name", compute='_custom_version'
+        string="Displayed Name", compute='_custom_version'
     )
 
 #    @api.multi
@@ -172,60 +172,61 @@ class IrAttachment(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         #attachment = super(Attachment, self).create(vals)
-        attachment = super(IrAttachment, self).create(vals_list)
+        attachments = super(IrAttachment, self).create(vals_list)
         ir_attachment = self.env['ir.attachment']
-        if attachment.name:#vals.get("datas_fname"):
+        for attachment in attachments:
+            if attachment.name:#vals.get("datas_fname"):
 
-            # ('datas_fname', '=', vals.get("datas_fname"))
-            ir_attachment = self.env['ir.attachment'].search([
-                ('name', '=', attachment.name),
-                ('res_model','=',attachment.res_model),
-                ('res_id','=',attachment.res_id)], 
-                order="id desc"
-                # limit=1
-            )
-            ids_att = ir_attachment.ids
-            if attachment.id in ids_att:
-                ids_att.remove(attachment.id)
-            if ids_att:
-                ir_attachment = max(ids_att)
-                ir_attachment = self.env['ir.attachment'].browse(ir_attachment)
-            else:
-                ir_attachment = attachment
-            # ir_attachment = max(ids_att) = ir_attachment[0]
-        config = self.env['reduce.model.versioning'].sudo().search([
-            ('company_id', '=', self.env.user.company_id.id)
-        ], limit=1)
-        if config:
-            search_model = self.env['ir.model'].search([
-                ('model', '=', attachment.res_model)
-            ])
-            if search_model.id in config.res_model_ids.ids:
-                # return super(IrAttachment, self).create(vals)
-                pass
-                
+                # ('datas_fname', '=', vals.get("datas_fname"))
+                ir_attachment = self.env['ir.attachment'].search([
+                    ('name', '=', attachment.name),
+                    ('res_model','=',attachment.res_model),
+                    ('res_id','=',attachment.res_id)],
+                    order="id desc"
+                    # limit=1
+                )
+                ids_att = ir_attachment.ids
+                if attachment.id in ids_att:
+                    ids_att.remove(attachment.id)
+                if ids_att:
+                    ir_attachment = max(ids_att)
+                    ir_attachment = self.env['ir.attachment'].browse(ir_attachment)
+                else:
+                    ir_attachment = attachment
+                # ir_attachment = max(ids_att) = ir_attachment[0]
+            config = self.env['reduce.model.versioning'].sudo().search([
+                ('company_id', '=', self.env.user.company_id.id)
+            ], limit=1)
+            if config:
+                search_model = self.env['ir.model'].search([
+                    ('model', '=', attachment.res_model)
+                ])
+                if search_model.id in config.res_model_ids.ids:
+                    # return super(IrAttachment, self).create(vals)
+                    pass
+
+                else:
+                    if ir_attachment:
+    #                    custom_version = ir_attachment.custom_version + 1
+                        custom_version = attachment._get_custom_version_document(ir_attachment)
+                        attachment.update({
+                                'prev_attachment_id': ir_attachment.id,
+                                'custom_version': custom_version,
+                            })
             else:
                 if ir_attachment:
-#                    custom_version = ir_attachment.custom_version + 1
+    #                custom_version = ir_attachment.custom_version + 1
                     custom_version = attachment._get_custom_version_document(ir_attachment)
                     attachment.update({
                             'prev_attachment_id': ir_attachment.id,
                             'custom_version': custom_version,
                         })
-        else:
+            # attachment_id = super(IrAttachment, self).create(vals)
             if ir_attachment:
-#                custom_version = ir_attachment.custom_version + 1
-                custom_version = attachment._get_custom_version_document(ir_attachment)
-                attachment.update({
-                        'prev_attachment_id': ir_attachment.id,
-                        'custom_version': custom_version,
-                    })
-        # attachment_id = super(IrAttachment, self).create(vals)
-        if ir_attachment:
-            ir_attachment.write({
-                'new_attachment_id': attachment.id
-            })
-        return attachment
+                ir_attachment.write({
+                    'new_attachment_id': attachment.id
+                })
+        return attachments
 
 
    # @api.multi
